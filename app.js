@@ -7,31 +7,39 @@ const newJokeButton = document.getElementById('newJokeButton');
 const jokeElement = document.getElementById('joke');
 const categorySelect = document.getElementById('categorySelect');
 
-// Function to display a loading state while fetching a joke
+// Function to show loading state while fetching
 function showLoadingState() {
     jokeElement.textContent = 'Loading...';
+}
+
+// Function to display a message when no joke is found
+function showNoJokeFoundMessage() {
+    jokeElement.textContent = 'No joke found. Try again later.';
 }
 
 // Function to display the joke or an error message
 function displayJoke(data) {
     if (data.joke) {
-        jokeElement.textContent = data.joke; // Single joke
+        jokeElement.textContent = data.joke; // Display single-line joke
     } else if (data.setup && data.delivery) {
-        jokeElement.textContent = `${data.setup} - ${data.delivery}`; // Two-part joke
+        jokeElement.textContent = `${data.setup} - ${data.delivery}`; // Display two-part joke
     } else {
-        jokeElement.textContent = 'No joke found. Try again later.'; // If no joke is returned
+        showNoJokeFoundMessage(); // If no joke is returned
     }
 }
 
-// Function to handle fetching the joke from the API
-function fetchJokeFromAPI(category) {
-    showLoadingState(); // Show loading message before fetching
+// Function to handle errors
+function handleError() {
+    jokeElement.textContent = 'Oops! Something went wrong. Please try again later.'; // Show error message
+}
 
-    fetchSingleJoke(category) // You could also use fetchTwoPartJoke(category) here
-        .then(data => displayJoke(data))
-        .catch(() => {
-            jokeElement.textContent = 'Oops! Something went wrong. Please try again later.'; // Error message
-        });
+// Function to fetch a joke from the API
+function fetchJokeFromAPI(category) {
+    showLoadingState(); // Show loading message before fetching joke
+
+    fetchSingleJoke(category) // Call to fetch a single joke
+        .then(data => displayJoke(data)) // Display the joke when fetched
+        .catch(handleError); // Handle any errors
 }
 
 // Event listener for the "Get Joke" button
