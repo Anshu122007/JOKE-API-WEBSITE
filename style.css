@@ -58,6 +58,10 @@ p {
     margin-top: 20px;
     font-weight: bold;
     animation: fadeIn 1s ease-out; /* Add a fade-in animation to joke text */
+    color: #333; /* Set text color to a dark gray for better contrast */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background for text */
+    padding: 10px;
+    border-radius: 8px; /* Rounded corners for the background */
 }
 
 /* Add a subtle shadow effect to the joke text */
