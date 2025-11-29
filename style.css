@@ -21,6 +21,17 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     width: 90%;
     max-width: 500px; /* Limit max width of the container */
+    animation: fadeIn 1s ease-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Style for the "Get Joke" button */
@@ -32,11 +43,12 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease; /* Add a smooth transition */
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
     background-color: #2980b9;
+    transform: scale(1.1); /* Slightly enlarge the button on hover */
 }
 
 /* Style for the joke text */
@@ -45,9 +57,27 @@ p {
     line-height: 1.6;
     margin-top: 20px;
     font-weight: bold;
+    animation: fadeIn 1s ease-out; /* Add a fade-in animation to joke text */
 }
 
 /* Add a subtle shadow effect to the joke text */
 p#joke {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        width: 90%;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    p {
+        font-size: 16px;
+    }
 }
