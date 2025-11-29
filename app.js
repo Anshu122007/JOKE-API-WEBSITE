@@ -1,5 +1,5 @@
-// Import the fetchJoke function from api.js
-import { fetchJoke } from './api.js';
+// Import the fetch functions from api.js
+import { fetchSingleJoke, fetchTwoPartJoke } from './api.js';
 
 // Cache DOM elements for performance
 const jokeButton = document.getElementById('jokeButton');
@@ -14,11 +14,11 @@ jokeButton.addEventListener('click', function() {
     jokeElement.textContent = 'Loading...';
 
     // Fetch the joke and handle response
-    fetchJoke(category)
+    fetchSingleJoke(category) // You could also use fetchTwoPartJoke(category) here
         .then(data => {
             if (data.joke) {
                 jokeElement.textContent = data.joke;
-            } else {
+            } else if (data.setup && data.delivery) {
                 jokeElement.textContent = `${data.setup} - ${data.delivery}`;
             }
         })
