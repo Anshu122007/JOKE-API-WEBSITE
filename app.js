@@ -16,14 +16,17 @@ jokeButton.addEventListener('click', function() {
     // Fetch the joke and handle response
     fetchSingleJoke(category) // You could also use fetchTwoPartJoke(category) here
         .then(data => {
+            // If the joke is a single line
             if (data.joke) {
                 jokeElement.textContent = data.joke;
-            } else if (data.setup && data.delivery) {
+            }
+            // If the joke has a setup and delivery
+            else if (data.setup && data.delivery) {
                 jokeElement.textContent = `${data.setup} - ${data.delivery}`;
             }
         })
         .catch(() => {
-            // If an error occurs, show a fallback message
-            jokeElement.textContent = 'Oops! Something went wrong. Try again later.';
+            // If an error occurs, show a fallback error message
+            jokeElement.textContent = 'Oops! Something went wrong. Please try again later.';
         });
 });
