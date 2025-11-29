@@ -7,44 +7,47 @@ const newJokeButton = document.getElementById('newJokeButton');
 const jokeElement = document.getElementById('joke');
 const categorySelect = document.getElementById('categorySelect');
 
-// Function to handle fetching and displaying jokes
-function displayJoke(category) {
-    jokeElement.textContent = 'Loading...'; // Show loading message while fetching
+// Function to display a loading state while fetching a joke
+function showLoadingState() {
+    jokeElement.textContent = 'Loading...';
+}
 
-    // Fetch the joke from the selected category
+// Function to display the joke or an error message
+function displayJoke(data) {
+    if (data.joke) {
+        jokeElement.textContent = data.joke; // Single joke
+    } else if (data.setup && data.delivery) {
+        jokeElement.textContent = `${data.setup} - ${data.delivery}`; // Two-part joke
+    } else {
+        jokeElement.textContent = 'No joke found. Try again later.'; // If no joke is returned
+    }
+}
+
+// Function to handle fetching the joke from the API
+function fetchJokeFromAPI(category) {
+    showLoadingState(); // Show loading message before fetching
+
     fetchSingleJoke(category) // You could also use fetchTwoPartJoke(category) here
-        .then(data => {
-            // If the joke is a single line
-            if (data.joke) {
-                jokeElement.textContent = data.joke;
-            }
-            // If the joke has a setup and delivery
-            else if (data.setup && data.delivery) {
-                jokeElement.textContent = `${data.setup} - ${data.delivery}`;
-            } else {
-                jokeElement.textContent = 'No joke found. Try again later.';
-            }
-        })
+        .then(data => displayJoke(data))
         .catch(() => {
-            // If there's an error, show a fallback message
-            jokeElement.textContent = 'Oops! Something went wrong. Please try again later.';
+            jokeElement.textContent = 'Oops! Something went wrong. Please try again later.'; // Error message
         });
 }
 
 // Event listener for the "Get Joke" button
 jokeButton.addEventListener('click', function() {
     const category = categorySelect.value; // Get selected category
-    displayJoke(category);
+    fetchJokeFromAPI(category); // Fetch joke when the button is clicked
 });
 
 // Event listener for the "New Joke" button
 newJokeButton.addEventListener('click', function() {
     const category = categorySelect.value; // Get selected category
-    displayJoke(category); // Fetch a new joke without changing the category
+    fetchJokeFromAPI(category); // Fetch a new joke when the "New Joke" button is clicked
 });
 
 // Event listener for clicking the joke itself to fetch a new one
 jokeElement.addEventListener('click', function() {
     const category = categorySelect.value; // Get selected category
-    displayJoke(category); // Fetch and display a new joke when the current one is clicked
+    fetchJokeFromAPI(category); // Fetch a new joke when the current joke is clicked
 });
