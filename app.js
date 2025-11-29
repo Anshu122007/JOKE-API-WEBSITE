@@ -1,17 +1,10 @@
+// Import the fetchJoke function from api.js
+import { fetchJoke } from './api.js';
+
 // Cache DOM elements for performance
 const jokeButton = document.getElementById('jokeButton');
 const jokeElement = document.getElementById('joke');
 const categorySelect = document.getElementById('categorySelect');
-
-// Function to fetch jokes from the selected category
-function fetchJoke(category) {
-    return fetch(`https://v2.jokeapi.dev/joke/${category}?type=single`)
-        .then(response => response.json())
-        .catch(error => {
-            console.error('Error fetching joke:', error);
-            throw error; // Throw error to be caught later
-        });
-}
 
 // Event listener for the "Get Joke" button
 jokeButton.addEventListener('click', function() {
