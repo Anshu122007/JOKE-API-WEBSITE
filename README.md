@@ -25,7 +25,7 @@ This is a simple web application that fetches jokes from the JokeAPI. Users can 
 1. Clone the repository:
 
 
-git clone <repo-url>
+git clone https://github.com/Anshu122007/JOKE-API-WEBSITE 
 
 2. Open `index.html` in your browser, or use a local server for better performance.
 
