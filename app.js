@@ -3,6 +3,7 @@ import { fetchSingleJoke, fetchTwoPartJoke } from './api.js';
 
 // Cache DOM elements for performance
 const jokeButton = document.getElementById('jokeButton');
+const newJokeButton = document.getElementById('newJokeButton');
 const jokeElement = document.getElementById('joke');
 const categorySelect = document.getElementById('categorySelect');
 
@@ -34,6 +35,12 @@ function displayJoke(category) {
 jokeButton.addEventListener('click', function() {
     const category = categorySelect.value; // Get selected category
     displayJoke(category);
+});
+
+// Event listener for the "New Joke" button
+newJokeButton.addEventListener('click', function() {
+    const category = categorySelect.value; // Get selected category
+    displayJoke(category); // Fetch a new joke without changing the category
 });
 
 // Event listener for clicking the joke itself to fetch a new one
