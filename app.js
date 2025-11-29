@@ -1,3 +1,8 @@
+// Cache DOM elements for performance
+const jokeButton = document.getElementById('jokeButton');
+const jokeElement = document.getElementById('joke');
+const categorySelect = document.getElementById('categorySelect');
+
 // Function to fetch jokes from the selected category
 function fetchJoke(category) {
     return fetch(`https://v2.jokeapi.dev/joke/${category}?type=single`)
@@ -9,23 +14,23 @@ function fetchJoke(category) {
 }
 
 // Event listener for the "Get Joke" button
-document.getElementById('jokeButton').addEventListener('click', function() {
-    const category = document.getElementById('categorySelect').value; // Get selected category
+jokeButton.addEventListener('click', function() {
+    const category = categorySelect.value; // Get selected category
 
     // Show loading message while fetching the joke
-    document.getElementById('joke').textContent = 'Loading...';
+    jokeElement.textContent = 'Loading...';
 
     // Fetch the joke and handle response
     fetchJoke(category)
         .then(data => {
             if (data.joke) {
-                document.getElementById('joke').textContent = data.joke;
+                jokeElement.textContent = data.joke;
             } else {
-                document.getElementById('joke').textContent = `${data.setup} - ${data.delivery}`;
+                jokeElement.textContent = `${data.setup} - ${data.delivery}`;
             }
         })
         .catch(() => {
             // If an error occurs, show a fallback message
-            document.getElementById('joke').textContent = 'Oops! Something went wrong. Try again later.';
+            jokeElement.textContent = 'Oops! Something went wrong. Try again later.';
         });
 });
