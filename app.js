@@ -23,10 +23,14 @@ jokeButton.addEventListener('click', function() {
             // If the joke has a setup and delivery
             else if (data.setup && data.delivery) {
                 jokeElement.textContent = `${data.setup} - ${data.delivery}`;
+            } else {
+                // If no joke is returned
+                jokeElement.textContent = 'No joke found. Please try again later.';
             }
         })
-        .catch(() => {
-            // If an error occurs, show a fallback error message
-            jokeElement.textContent = 'Oops! Something went wrong. Please try again later.';
+        .catch((error) => {
+            // If there's a network or API issue, show a specific error message
+            console.error('Error fetching joke:', error);
+            jokeElement.textContent = 'Sorry, there was an error fetching the joke. Please check your connection and try again.';
         });
 });
